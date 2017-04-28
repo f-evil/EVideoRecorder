@@ -73,7 +73,7 @@ public class MainActivity extends BaseAppCompatActivity {
         try {
             mVideoConfig = VideoConfig
                     .get()
-                    .setTime(20 * 1000)
+                    .setTime(15 * 1000)
                     .setProfile(CamcorderProfile.QUALITY_480P)
                     .setCompress(true)
                     .setCompressMode(VideoConfig.CompressMode.fast)

@@ -264,8 +264,6 @@ public class TimeRoundProgressBar extends View {
 
     /**
      * 获取进度.需要同步
-     *
-     * @return
      */
     public synchronized int getProgress() {
         return progress;
@@ -274,8 +272,6 @@ public class TimeRoundProgressBar extends View {
     /**
      * 设置进度，此为线程安全控件，由于考虑多线的问题，需要同步
      * 刷新界面调用postInvalidate()能在非UI线程刷新
-     *
-     * @param progress
      */
     public synchronized void setProgress(int progress) {
         if (progress < 0) {
