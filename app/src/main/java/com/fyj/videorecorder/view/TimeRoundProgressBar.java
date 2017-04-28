@@ -122,7 +122,6 @@ public class TimeRoundProgressBar extends View {
 
         Paint.FontMetrics fm = paint.getFontMetrics();
         mTextHeight = (float) Math.ceil(fm.descent - fm.ascent);
-        Log.e("mTextHeight", mTextHeight + "");
     }
 
     RectF oval;
@@ -168,7 +167,6 @@ public class TimeRoundProgressBar extends View {
                     mTextHeight / 3 * 2 + mTextHeight + centerWidth - radiu,
                     centerWidth + radiu,
                     mTextHeight / 3 * 2 + mTextHeight + centerWidth + radiu);
-//            oval = new RectF(textwidth - radiu, centerHeight - radiu, textwidth + radiu, centerHeight + radiu);
         }
 
         float percent = (float) progress / (float) max;
@@ -257,11 +255,11 @@ public class TimeRoundProgressBar extends View {
      *
      * @param max
      */
-    public synchronized void setMax(int max) {
+    public synchronized void setMax(long max) {
         if (max < 0) {
-            throw new IllegalArgumentException("max not less than 0");
+            throw new IllegalArgumentException("MaxTime not less than 0");
         }
-        this.max = max;
+        this.max = (int) (max / 1000);
     }
 
     /**
