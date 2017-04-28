@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.fyj.videorecorder.MainActivity">
+
+    <Button
+        android:id="@+id/btn_start"
+        android:layout_width="88dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:text="录制视频"
+        app:layout_constraintLeft_toLeftOf="@+id/parent"
+        app:layout_constraintTop_toTopOf="@+id/parent"/>
+
+    <TextView
+        android:id="@+id/tv_ori_addr_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="原始视频储存地址"
+        app:layout_constraintLeft_toLeftOf="@+id/btn_start"
+        app:layout_constraintTop_toBottomOf="@+id/btn_start"/>
+
+    <TextView
+        android:id="@+id/tv_ori_addr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintLeft_toLeftOf="@+id/btn_start"
+        app:layout_constraintTop_toBottomOf="@+id/tv_ori_addr_title"
+        tools:text="dawdwa"/>
+
+    <TextView
+        android:id="@+id/tv_ori_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintLeft_toLeftOf="@+id/btn_start"
+        app:layout_constraintTop_toBottomOf="@+id/tv_ori_addr"
+        tools:text="dawdwa"/>
+
+    <TextView
+        android:id="@+id/tv_addr_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="压缩视频储存地址"
+        app:layout_constraintLeft_toLeftOf="@+id/btn_start"
+        app:layout_constraintTop_toBottomOf="@+id/tv_ori_size"/>
+
+    <TextView
+        android:id="@+id/tv_addr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintLeft_toLeftOf="@+id/btn_start"
+        app:layout_constraintTop_toBottomOf="@+id/tv_addr_title"
+        tools:text="dawdwa"/>
+
+    <TextView
+        android:id="@+id/tv_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintLeft_toLeftOf="@+id/btn_start"
+        app:layout_constraintTop_toBottomOf="@+id/tv_addr"
+        tools:text="dawdwa"/>
+
+    <TextView
+        android:id="@+id/tv_pic_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="视频截图储存地址"
+        app:layout_constraintLeft_toLeftOf="@+id/btn_start"
+        app:layout_constraintTop_toBottomOf="@+id/tv_size"/>
+
+    <TextView
+        android:id="@+id/tv_pic_addr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintLeft_toLeftOf="@+id/btn_start"
+        app:layout_constraintTop_toBottomOf="@+id/tv_pic_title"
+        tools:text="dawdwa"/>
+
+
+</android.support.constraint.ConstraintLayout>

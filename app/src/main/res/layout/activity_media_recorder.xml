@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+    <SurfaceView
+        android:id="@+id/surfaceview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_take_vedio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="36dp"
+        android:orientation="horizontal"
+        android:visibility="visible">
+
+        <ImageView
+            android:id="@+id/iv_cancel"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:padding="12dp"
+            android:layout_marginRight="52dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/trpb_controller"
+            android:scaleType="centerInside"
+            android:src="@drawable/btn_down"/>
+
+        <com.fyj.videorecorder.view.TimeRoundProgressBar
+            android:id="@+id/trpb_controller"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            app:maxTime="10"
+            app:roundColor="@color/white"
+            app:roundProgressColor="@color/hint_main"
+            app:roundStyle="STROKE"
+            app:roundWidth="6dp"
+            app:timeTextSize="12sp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_confrm_vedio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="36dp"
+        android:visibility="gone"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_delete"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignBottom="@+id/iv_confirm"
+            android:layout_alignParentLeft="true"
+            android:layout_alignTop="@+id/iv_confirm"
+            android:layout_marginLeft="40dp"
+            android:src="@drawable/icon_vedio_back"/>
+
+        <ImageView
+            android:id="@+id/iv_confirm"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="40dp"
+            android:src="@drawable/icon_vedio_confirm"/>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
