@@ -106,8 +106,11 @@ public class MainActivity extends BaseAppCompatActivity {
                     return;
                 }
 
+                //压缩后视频地址
                 String mVideoPath = vedioInfo.getVideoPath();
+                //视频截图
                 String mVideoThumblePath = vedioInfo.getPicPath();
+                //视频原地址
                 String mVideoOriginPath = vedioInfo.getOriginVideoPath();
 
                 if (StringUtil.isEmpty(mVideoPath)

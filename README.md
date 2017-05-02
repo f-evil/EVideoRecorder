@@ -11,12 +11,8 @@
 
 ### 使用
     //Application中
-    CachePath.initDirName("videorecorder");
-    String mediaCachePath = CachePath.getMediaCachePath(this);
-    VCamera.setVideoCachePath(mediaCachePath);
-    VCamera.setDebugMode(true);
-    VCamera.initialize(this);
-    
+    VideoConfig.init(this, "");
+
     //在代码中请求
     try {
         mVideoConfig = VideoConfig
@@ -34,7 +30,7 @@
           mVideoConfig.start(this);
     //      mVideoConfig.start(this,VideoConfig.REQUESR_RECORD_MEDIA);
     }
-    
+
     //代码中获取数据
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -43,16 +39,24 @@
         }
         switch (requestCode) {
             case VideoConfig.REQUESR_RECORD_MEDIA:
+
+                VideoInfo vedioInfo = ERecorderActivityImpl.getVedioInfo(data);
+
+                if (vedioInfo == null) {
+                    Toast.makeText(getActivity(), "视频拍摄失败", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 //压缩后视频地址
-                String mVideoPath = ERecorderActivityImpl.getMediaPath(data);
+                String mVideoPath = vedioInfo.getVideoPath();
                 //视频截图
-                String mVideoThumblePath = ERecorderActivityImpl.getMediaThumblePath(data);
+                String mVideoThumblePath = vedioInfo.getPicPath();
                 //视频原地址
-                String mVideoOriginPath = ERecorderActivityImpl.getMediaOriginPath(data);
-                break;
+                String mVideoOriginPath = vedioInfo.getOriginVideoPath();
+
         }
     }
-    
+
 ### 属性
 
     /**
@@ -283,5 +287,3 @@
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
-
-

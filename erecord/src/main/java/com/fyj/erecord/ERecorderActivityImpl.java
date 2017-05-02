@@ -172,12 +172,13 @@ public class ERecorderActivityImpl {
 
     /**
      * 获取拍摄视频信息
+     *
      * @param i intent
      * @return videoinfo
      */
     public static VideoInfo getVedioInfo(Intent i) {
         if (i == null || !i.hasExtra(MEDIA_VIDEO_INFO)) {
-            return VideoInfo.getVideo("", "", "");
+            return null;
         }
         return i.getParcelableExtra(MEDIA_VIDEO_INFO);
     }
