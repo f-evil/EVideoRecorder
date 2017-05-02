@@ -21,7 +21,7 @@
                 .setProfile(CamcorderProfile.QUALITY_480P)
                 .setCompress(true)
                 .setCompressMode(VideoConfig.CompressMode.fast)
-                .build();
+                .check();
     }   catch (NullRecordTimeException e) {
           mVideoConfig.setTime(10 * 1000);
     }   catch (NullProfileException e) {
