@@ -1,4 +1,4 @@
-package com.fyj.videorecorder;
+package com.fyj.erecord;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,11 +13,12 @@ import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.fyj.videorecorder.global.CachePath;
-import com.fyj.videorecorder.util.FileUtils;
-import com.fyj.videorecorder.util.ImageUtils;
-import com.fyj.videorecorder.util.StringUtil;
-import com.fyj.videorecorder.util.XLog;
+import com.fyj.erecord.global.CachePath;
+import com.fyj.erecord.model.VideoInfo;
+import com.fyj.erecord.util.FileUtils;
+import com.fyj.erecord.util.ImageUtils;
+import com.fyj.erecord.util.StringUtil;
+import com.fyj.erecord.util.XLog;
 
 import java.io.File;
 import java.util.List;
@@ -36,8 +37,12 @@ import mabeijianxi.camera.util.DeviceUtils;
  * 描述:
  */
 
-class ERecorderActivityImpl {
+public class ERecorderActivityImpl {
 
+    /**
+     * resultkey 视频信息
+     */
+    private static final String MEDIA_VIDEO_INFO = "media_video_info";
     /**
      * resultkey 原始视频文件地址
      */
@@ -106,6 +111,14 @@ class ERecorderActivityImpl {
         activity.finish();
     }
 
+
+    public static void setResultAndFinish(Activity activity, VideoInfo videoInfo) {
+        Intent i = new Intent();
+        i.putExtra(MEDIA_VIDEO_INFO, videoInfo);
+        activity.setResult(activity.RESULT_OK, i);
+        activity.finish();
+    }
+
     /**
      * 销毁持有
      */
@@ -157,47 +170,16 @@ class ERecorderActivityImpl {
         return StringUtil.removeEmpty(i.getStringExtra(PARAM_RECORD_COMPRESSMODE), "medium");
     }
 
-
     /**
-     * 获取压缩视频储存地址
-     *
+     * 获取拍摄视频信息
      * @param i intent
-     * @return 地址
+     * @return videoinfo
      */
-    static String getMediaPath(Intent i) {
-        if (i == null || !i.hasExtra(MEDIA_PATH)) {
-            return "";
+    public static VideoInfo getVedioInfo(Intent i) {
+        if (i == null || !i.hasExtra(MEDIA_VIDEO_INFO)) {
+            return VideoInfo.getVideo("", "", "");
         }
-
-        return StringUtil.removeEmpty(i.getStringExtra(MEDIA_PATH));
-    }
-
-    /**
-     * 获取视频截图储存地址
-     *
-     * @param i intent
-     * @return 地址
-     */
-    static String getMediaThumblePath(Intent i) {
-        if (i == null || !i.hasExtra(MEDIA_THUMBLE_PATH)) {
-            return "";
-        }
-
-        return StringUtil.removeEmpty(i.getStringExtra(MEDIA_THUMBLE_PATH));
-    }
-
-    /**
-     * 获取视频截图储存地址
-     *
-     * @param i intent
-     * @return 地址
-     */
-    static String getMediaOriginPath(Intent i) {
-        if (i == null || !i.hasExtra(MEDIA_ORIGIN_PATH)) {
-            return "";
-        }
-
-        return StringUtil.removeEmpty(i.getStringExtra(MEDIA_ORIGIN_PATH));
+        return i.getParcelableExtra(MEDIA_VIDEO_INFO);
     }
 
     /**
@@ -349,10 +331,11 @@ class ERecorderActivityImpl {
     /**
      * 获取视频截图
      *
+     * @param context    上下文
      * @param originPath 原始地址
      * @return 获取截图
      */
-    static String getVideoThumble(String originPath) {
+    static String getVideoThumble(Context context, String originPath) {
         Bitmap videoThumbnail =
                 ImageUtils
                         .getVideoThumbnail(
@@ -365,8 +348,7 @@ class ERecorderActivityImpl {
                 .saveBitmap2File(
                         videoThumbnail,
                         CachePath
-                                .getMediaCachePath(
-                                        VideoApp.getApplication()),
+                                .getMediaCachePath(context),
                         System.currentTimeMillis() + "_thumbnail.jpg");
     }
 

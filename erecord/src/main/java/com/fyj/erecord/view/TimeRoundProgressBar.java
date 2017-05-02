@@ -1,4 +1,4 @@
-package com.fyj.videorecorder.view;
+package com.fyj.erecord.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -13,7 +13,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.fyj.videorecorder.R;
+import com.fyj.erecord.R;
 
 /**
  * 当前作者: Fyj<br>

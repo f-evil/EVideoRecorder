@@ -1,4 +1,4 @@
-package com.fyj.videorecorder.exception;
+package com.fyj.erecord.exception;
 
 /**
  * 当前作者: Fyj<br>
@@ -8,9 +8,9 @@ package com.fyj.videorecorder.exception;
  * 描述:
  */
 
-public class NullRecordTimeException extends Exception {
+public class NullAttachException extends Exception {
 
-    public NullRecordTimeException(String message) {
+    public NullAttachException(String message) {
         super(message);
     }
 }

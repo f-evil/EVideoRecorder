@@ -1,4 +1,4 @@
-package com.fyj.videorecorder.util;
+package com.fyj.erecord.util;
 
 import android.util.Log;
 

@@ -1,4 +1,4 @@
-package com.fyj.videorecorder;
+package com.fyj.erecord;
 
 import android.content.Intent;
 import android.graphics.PixelFormat;
@@ -15,12 +15,12 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.fyj.videorecorder.base.BaseAppCompatActivity;
-import com.fyj.videorecorder.global.CachePath;
-import com.fyj.videorecorder.util.XLog;
-import com.fyj.videorecorder.view.TimeRoundProgressBar;
+import com.fyj.erecord.base.BaseAppCompatActivity;
+import com.fyj.erecord.global.CachePath;
+import com.fyj.erecord.model.VideoInfo;
+import com.fyj.erecord.util.XLog;
+import com.fyj.erecord.view.TimeRoundProgressBar;
 
-import butterknife.BindView;
 import mabeijianxi.camera.model.OnlyCompressOverBean;
 
 public class ERecorderActivity extends BaseAppCompatActivity implements SurfaceHolder.Callback {
@@ -65,19 +65,12 @@ public class ERecorderActivity extends BaseAppCompatActivity implements SurfaceH
      */
     private MaterialDialog mDialog;
 
-    @BindView(R.id.surfaceview)
     SurfaceView mSurfaceview;
-    @BindView(R.id.iv_cancel)
     ImageView mIvCancel;
-    @BindView(R.id.trpb_controller)
     TimeRoundProgressBar mTrpbController;
-    @BindView(R.id.rl_take_vedio)
     RelativeLayout mRlTakeVedio;
-    @BindView(R.id.iv_delete)
     ImageView mIvDelete;
-    @BindView(R.id.iv_confirm)
     ImageView mIvConfirm;
-    @BindView(R.id.rl_confrm_vedio)
     RelativeLayout mRlConfrmVedio;
 
     @Override
@@ -131,6 +124,15 @@ public class ERecorderActivity extends BaseAppCompatActivity implements SurfaceH
 
     @Override
     protected void initView() {
+
+        mSurfaceview = (SurfaceView) findViewById(R.id.surfaceview);
+        mRlTakeVedio = (RelativeLayout) findViewById(R.id.rl_take_vedio);
+        mIvCancel = (ImageView) findViewById(R.id.iv_cancel);
+        mTrpbController = (TimeRoundProgressBar) findViewById(R.id.trpb_controller);
+        mRlConfrmVedio = (RelativeLayout) findViewById(R.id.rl_confrm_vedio);
+        mIvDelete = (ImageView) findViewById(R.id.iv_delete);
+        mIvConfirm = (ImageView) findViewById(R.id.iv_confirm);
+
 
         mDialog = ERecorderActivityImpl.getCreateVedioDialog(getActivity());
         mTrpbController.setMax(mRecordTime);
@@ -272,7 +274,7 @@ public class ERecorderActivity extends BaseAppCompatActivity implements SurfaceH
                     thumblePath = onlyCompressOverBean.getPicPath();
                 } else {
                     videoPath = mOriginPath;
-                    thumblePath = ERecorderActivityImpl.getVideoThumble(mOriginPath);
+                    thumblePath = ERecorderActivityImpl.getVideoThumble(getActivity(), mOriginPath);
                 }
 
                 runOnUiThread(new Runnable() {
@@ -282,12 +284,16 @@ public class ERecorderActivity extends BaseAppCompatActivity implements SurfaceH
                     }
                 });
 
+//                ERecorderActivityImpl
+//                        .setResultAndFinish(
+//                                getActivity(),
+//                                videoPath,
+//                                thumblePath,
+//                                mOriginPath);
+
                 ERecorderActivityImpl
                         .setResultAndFinish(
-                                getActivity(),
-                                videoPath,
-                                thumblePath,
-                                mOriginPath);
+                                getActivity(), VideoInfo.getVideo(mOriginPath, videoPath, thumblePath));
 
             }
         }).start();

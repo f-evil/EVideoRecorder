@@ -31,7 +31,7 @@
             android:scaleType="centerInside"
             android:src="@drawable/btn_down"/>
 
-        <com.fyj.videorecorder.view.TimeRoundProgressBar
+        <com.fyj.erecord.view.TimeRoundProgressBar
             android:id="@+id/trpb_controller"
             android:layout_width="80dp"
             android:layout_height="wrap_content"

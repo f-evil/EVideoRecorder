@@ -3,11 +3,9 @@ package com.fyj.videorecorder;
 import android.app.Application;
 import android.content.Context;
 
-import com.fyj.videorecorder.global.CachePath;
+import com.fyj.erecord.VideoConfig;
 
 import java.lang.ref.SoftReference;
-
-import mabeijianxi.camera.VCamera;
 
 /**
  * 当前作者: Fyj<br>
@@ -25,11 +23,7 @@ public class VideoApp extends Application {
     public void onCreate() {
         super.onCreate();
         videoContext = new SoftReference<>(getApplicationContext());
-        CachePath.initDirName("videorecorder");
-        String mediaCachePath = CachePath.getMediaCachePath(this);
-        VCamera.setVideoCachePath(mediaCachePath);
-        VCamera.setDebugMode(true);
-        VCamera.initialize(this);
+        VideoConfig.init(this, "");
     }
 
     public static Context getApplication() {

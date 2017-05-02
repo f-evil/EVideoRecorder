@@ -1,12 +1,15 @@
-package com.fyj.videorecorder;
+package com.fyj.erecord;
 
 import android.app.Activity;
+import android.content.Context;
 import android.media.CamcorderProfile;
 
-import com.fyj.videorecorder.exception.NullAttachException;
-import com.fyj.videorecorder.exception.NullProfileException;
-import com.fyj.videorecorder.exception.NullRecordTimeException;
-import com.fyj.videorecorder.util.XLog;
+import com.fyj.erecord.exception.NullProfileException;
+import com.fyj.erecord.exception.NullRecordTimeException;
+import com.fyj.erecord.global.CachePath;
+import com.fyj.erecord.util.StringUtil;
+
+import mabeijianxi.camera.VCamera;
 
 /**
  * 当前作者: Fyj<br>
@@ -21,8 +24,11 @@ public class VideoConfig {
     /**
      * 请求拍视频请求码
      */
-    public static final int REQUESR_RECORD_MEDIA = 112;
+    public static final int REQUESR_RECORD_MEDIA = 0x0005;
 
+    /**
+     * 压缩速率
+     */
     public enum CompressMode {
         slow, medium, fast, faster, veryfast
     }
@@ -54,6 +60,25 @@ public class VideoConfig {
     }
 
     /**
+     * 初始化缓存目录等
+     *
+     * @param context   上下文
+     * @param cachePath 缓存路径
+     */
+    public static void init(Context context, String cachePath) {
+        String mediaCachePath;
+        if (StringUtil.isEmpty(cachePath)) {
+            CachePath.initDirName("videorecorder");
+            mediaCachePath = CachePath.getMediaCachePath(context);
+        } else {
+            mediaCachePath = cachePath;
+        }
+        VCamera.setVideoCachePath(mediaCachePath);
+        VCamera.setDebugMode(true);
+        VCamera.initialize(context);
+    }
+
+    /**
      * 获得实例
      */
     public static VideoConfig get() {
@@ -71,7 +96,7 @@ public class VideoConfig {
                     .setProfile(CamcorderProfile.QUALITY_480P)
                     .setCompress(true)
                     .setCompressMode(CompressMode.medium)
-                    .build();
+                    .check();
         } catch (NullRecordTimeException e) {
             e.printStackTrace();
         } catch (NullProfileException e) {
@@ -123,8 +148,6 @@ public class VideoConfig {
      */
     public VideoConfig setCompressMode(CompressMode compressMode) {
         mCompressMode = compressMode.name();
-        XLog.e("config", mCompressMode);
-        XLog.e("config", compressMode.toString());
         return this;
     }
 
@@ -132,10 +155,15 @@ public class VideoConfig {
      * 请求开始录制视频
      *
      * @throws NullRecordTimeException 缺少录制时间异常
-     * @throws NullAttachException     缺少回调Activity异常
      * @throws NullProfileException    缺少配置文件异常
      */
-    public VideoConfig build() throws NullRecordTimeException, NullProfileException {
+    public VideoConfig check() throws NullRecordTimeException, NullProfileException {
+        if (mRecordTime == -1) {
+            throw new NullRecordTimeException("You need set mRecordTime param by using setTime().");
+        }
+        if (mProfile == -1) {
+            throw new NullProfileException("You need set mProfile param by using setProfile().");
+        }
         return this;
     }
 

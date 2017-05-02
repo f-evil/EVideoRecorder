@@ -1,4 +1,4 @@
-package com.fyj.videorecorder.base;
+package com.fyj.erecord.base;
 
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
@@ -7,8 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
+import com.fyj.erecord.util.XLog;
 
 /**
  * 当前作者: Fyj<br>
@@ -20,14 +19,12 @@ import butterknife.Unbinder;
 public abstract class BaseAppCompatActivity extends AppCompatActivity {
 
     private String TAG = this.getClass().getSimpleName();
-    private Unbinder unBinder;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(setLayout());
-        unBinder = ButterKnife.bind(this);
         getIntentData();
         initDate();
         initView();
@@ -45,6 +42,7 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        XLog.e("Showing Activity Name:", TAG);
     }
 
     @Override
@@ -56,7 +54,6 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         destoryPre();
-        unBinder.unbind();
     }
 
     @Override

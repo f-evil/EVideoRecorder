@@ -7,11 +7,14 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.fyj.erecord.ERecorderActivityImpl;
+import com.fyj.erecord.VideoConfig;
+import com.fyj.erecord.exception.NullProfileException;
+import com.fyj.erecord.exception.NullRecordTimeException;
+import com.fyj.erecord.model.VideoInfo;
+import com.fyj.erecord.util.FileUtils;
+import com.fyj.erecord.util.StringUtil;
 import com.fyj.videorecorder.base.BaseAppCompatActivity;
-import com.fyj.videorecorder.exception.NullProfileException;
-import com.fyj.videorecorder.exception.NullRecordTimeException;
-import com.fyj.videorecorder.util.FileUtils;
-import com.fyj.videorecorder.util.StringUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -77,7 +80,7 @@ public class MainActivity extends BaseAppCompatActivity {
                     .setProfile(CamcorderProfile.QUALITY_480P)
                     .setCompress(true)
                     .setCompressMode(VideoConfig.CompressMode.fast)
-                    .build();
+                    .check();
         } catch (NullRecordTimeException e) {
             mVideoConfig.setTime(10 * 1000);
         } catch (NullProfileException e) {
@@ -95,11 +98,20 @@ public class MainActivity extends BaseAppCompatActivity {
         }
         switch (requestCode) {
             case VideoConfig.REQUESR_RECORD_MEDIA:
-                String mVideoPath = ERecorderActivityImpl.getMediaPath(data);
-                String mVideoThumblePath = ERecorderActivityImpl.getMediaThumblePath(data);
-                String mVideoOriginPath = ERecorderActivityImpl.getMediaOriginPath(data);
+
+                VideoInfo vedioInfo = ERecorderActivityImpl.getVedioInfo(data);
+
+                if (vedioInfo == null) {
+                    Toast.makeText(getActivity(), "视频拍摄失败", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                String mVideoPath = vedioInfo.getVideoPath();
+                String mVideoThumblePath = vedioInfo.getPicPath();
+                String mVideoOriginPath = vedioInfo.getOriginVideoPath();
+
                 if (StringUtil.isEmpty(mVideoPath)
-                        || StringUtil.isEmpty(mVideoThumblePath)) {
+                        || StringUtil.isEmpty(mVideoOriginPath)) {
                     Toast.makeText(getActivity(), "视频拍摄失败", Toast.LENGTH_SHORT).show();
                     return;
                 }

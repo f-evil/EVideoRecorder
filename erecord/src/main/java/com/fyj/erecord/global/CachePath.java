@@ -1,9 +1,9 @@
-package com.fyj.videorecorder.global;
+package com.fyj.erecord.global;
 
 import android.content.Context;
 import android.os.Environment;
 
-import com.fyj.videorecorder.util.StorageUtils;
+import com.fyj.erecord.util.StorageUtils;
 
 import java.io.File;
 
